@@ -1,8 +1,8 @@
-
 {
   "timestamp": 1437522387,
+  "user": "admin@example.com",
+  "sourceIP": "108.50.169.163",
   "event": {
-    "sourceIP": "108.50.169.163",
     "clusterID": "26b3c8ef50bf96c2",
     "action": "take",
     "timestamp": 1437522387 
