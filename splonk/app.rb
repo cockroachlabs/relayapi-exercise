@@ -47,19 +47,17 @@ FunctionsFramework.http("event") do |request|
     body = JSON.parse(request.body.read) # TODO handle really badly formatted event
 
     # validate top-level fields
-    if not(timestamp?(body["timestamp"]) && sourceip?(body["sourceIP"]) && user?(body["user"]))
+    if timestamp?(body["timestamp"]) && sourceip?(body["sourceIP"]) && user?(body["user"])
+      puts body
+      # validate event fields
+      event = body["event"]
+      if (timestamp?(event["timestamp"]) && clusterid?(event["clusterID"]) && action?(event["action"]))
+        good_event = true
+      else 
+        puts "badly formatted event"
+      end
+    else
       puts "badly formatted message"
-      break
-    end
-
-    puts body
-
-    # validate event fields
-    event = body["event"]
-    if (timestamp?(event["timestamp"]) && clusterid?(event["clusterID"]) && action?(event["action"]))
-      good_event = true
-    else 
-      puts "badly formatted event"
     end
   end
 
@@ -68,6 +66,6 @@ FunctionsFramework.http("event") do |request|
     "OK"
   else
     puts "BAD EVENT processed"
-    "BAD_EVENT"
+    Rack::Response.new("BAD_EVENT", 400)
   end
 end

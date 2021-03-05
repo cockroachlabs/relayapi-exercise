@@ -3,4 +3,4 @@ This is the source code for the "Splonk" server for the exercise. This is not pa
 # local testing (development)
 
 `bundle exec functions-framework-ruby --source=splonk.rb --target=event`
-`curl -X POST -H "Content-Type: application/json" -d @event.json http://localhost:8080`
+`curl -i -X POST -H "Content-Type: application/json" -d @event.json http://localhost:8080`
